@@ -1,0 +1,24 @@
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.NavList {
+  display: flex;
+}
+
+.NavLink {
+  font-size: 20px;
+  color: #2a2a2a;
+}
+
+.NavItem:not(:last-child) {
+  margin-right: 15px;
+}
+
+.NavLink--active {
+  color: #0003ef;
+}
