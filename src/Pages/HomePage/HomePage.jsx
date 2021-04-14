@@ -1,8 +1,9 @@
 // import propTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import moviesApi from '../../Services/moviesApi';
-import { Link } from 'react-router-dom';
+import moviesApi from '../../utils/moviesApi';
+// import { Link } from 'react-router-dom';
 
+// axios.defaults.headers.common['Authorization'] = `Bearer ${API_KEY}`;
 const HomePage = () => {
   const [popularMovies, setPopularMovies] = useState([]);
 
@@ -16,10 +17,8 @@ const HomePage = () => {
     <>
       <h2>Popular Movies</h2>
       <ul>
-        {popularMovies.map(({ title }) => (
-          <li>
-            <Link>{title}</Link>
-          </li>
+        {popularMovies.map(({ title, id }) => (
+          <li key={id}>{title}</li>
         ))}
       </ul>
     </>

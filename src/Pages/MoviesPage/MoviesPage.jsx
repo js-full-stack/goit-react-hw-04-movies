@@ -1,15 +1,50 @@
 // import propTypes from 'prop-types';
+import { useState, useEffect } from 'react';
 
-import sprite from '../../images/sprite.svg';
 import './MoviesPage.scss';
+import sprite from '../../images/sprite.svg';
+import moviesApi from '../../utils/moviesApi';
+import SearchForm from '../../Components/SearchForm';
+
 const MoviesPage = () => {
+  // const [query, setQuery] = useState('');
+  const [filmsList, setFilmsList] = useState([]);
+
+  // const handleInputChange = e => setQuery(e.target.value);
+
+  // useEffect(() => {}, []);
+
+  const handleSubmit = searchQuery => {
+    moviesApi
+      .handleMovieSearch(searchQuery)
+      .then(results => setFilmsList(results));
+  };
+
+  // const
+
+  // useEffect(() => {
+  //   moviesApi.handleMovieSearch(query).then(results => setFilmsList(results));
+  // }, [query]);
+
+  // const data = moviesApi
+  //   .handleMovieSearch()
+  //   .then(results => console.log(results));
+  // console.log(data);
+
+  // useEffect(() => {
+  //   moviesApi.handleMovieSearch().then(results => setFilmsList(results));
+  // }, [query]);
+  // useEffect(() => {})
   return (
     <>
       <h2>Movies Page</h2>
-      <form className="SearchForm">
+      <SearchForm onSubmit={handleSubmit} />
+      {/* <form onSubmit={handleSubmit} className="SearchForm">
         <label className="SearchLabel">
           <input
             type="text"
+            value={query}
+            onChange={handleInputChange}
             className="SearchInput"
             placeholder="Enter the title of the movie"
           />
@@ -20,7 +55,15 @@ const MoviesPage = () => {
             </svg>
           </button>
         </label>
-      </form>
+      </form> */}
+
+      {filmsList && (
+        <ul>
+          {/* {filmsList.map(film => (
+            <li>{film.title}</li>
+          ))} */}
+        </ul>
+      )}
     </>
   );
 };
