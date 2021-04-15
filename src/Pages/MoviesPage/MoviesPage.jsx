@@ -1,8 +1,7 @@
-// import propTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 import './MoviesPage.scss';
-import sprite from '../../images/sprite.svg';
 import moviesApi from '../../utils/moviesApi';
 import SearchForm from '../../Components/SearchForm';
 
@@ -28,6 +27,13 @@ const MoviesPage = () => {
       )}
     </>
   );
+};
+
+MoviesPage.propTypes = {
+  handleSubmit: PropTypes.func,
+  moviesApi: PropTypes.shape({
+    handleMovieSearch: PropTypes.func,
+  }),
 };
 
 export default MoviesPage;
