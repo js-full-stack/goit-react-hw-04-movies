@@ -10,8 +10,13 @@ const fetchPopularMovies = () => {
 };
 
 const handleMovieSearch = query => {
-  const SEARCH_URL = `/3/search/movie?api_key=${API_KEY}&query=${query}`;
-  return axios.get(SEARCH_URL).then(({ data }) => data.results);
+  const SearchUrl = `/3/search/movie?api_key=${API_KEY}&query=${query}`;
+  return axios.get(SearchUrl).then(({ data }) => data.results);
 };
 
-export default { fetchPopularMovies, handleMovieSearch };
+const handleClickLinkMovie = movieId => {
+  const MovieUrl = `/3/movie/${movieId}?api_key=${API_KEY}`;
+  return axios.get(MovieUrl).then(({ data }) => data);
+};
+
+export default { fetchPopularMovies, handleMovieSearch, handleClickLinkMovie };

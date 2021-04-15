@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { routes } from '../routes';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import PageError from '../Pages/ErrorPage';
+import { Switch, Route } from 'react-router-dom';
+import ErrorPage from '../Pages/ErrorPage';
 
 const Content = () => {
   return (
@@ -11,7 +11,7 @@ const Content = () => {
           {routes.map(({ path, exact, component: Component }) => (
             <Route key={path} path={path} exact={exact} component={Component} />
           ))}
-          <Route component={PageError} />
+          <Route component={ErrorPage} />
           {/* <Redirect to="/" /> */}
         </Switch>
       </Suspense>

@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import moviesApi from '../../utils/moviesApi';
 // import { Link } from 'react-router-dom';
 
-// axios.defaults.headers.common['Authorization'] = `Bearer ${API_KEY}`;
 const HomePage = () => {
   const [popularMovies, setPopularMovies] = useState([]);
 

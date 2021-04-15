@@ -7,17 +7,18 @@ const Navigation = () => {
     <nav>
       <ul className="NavList">
         {routes.map(({ path, label, exact }) => {
-          return (
+          return label ? (
             <li key={path} className="NavItem">
               <NavLink
                 activeClassName="NavLink--active"
                 to={path}
+                key={path}
                 exact={exact}
               >
                 {label}
               </NavLink>
             </li>
-          );
+          ) : null;
         })}
       </ul>
     </nav>
@@ -25,25 +26,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-
-{
-  /* <li className="NavItem">
-          <NavLink
-            exact
-            className="NavLink"
-            activeClassName="NavLink--active"
-            to="/"
-          >
-            Homepage
-          </NavLink>
-        </li>
-        <li className="NavItem">
-          <NavLink
-            className="NavLink"
-            activeClassName="NavLink--active"
-            to="/movies"
-          >
-            Movies
-          </NavLink>
-        </li> */
-}
