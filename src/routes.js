@@ -8,7 +8,6 @@ const HomePage = lazy(
 const MoviesPage = lazy(
   () => import('./Pages/MoviesPage') /* webpackChunkName: "MoviesPage" */,
 );
-// *Lazy Load
 
 export const routes = [
   { path: '/', exact: true, label: 'HomePage', component: HomePage },
