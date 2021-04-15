@@ -1,10 +1,33 @@
 import { NavLink } from 'react-router-dom';
+import { routes } from '../../routes';
+import './Navigation.scss';
 
 const Navigation = () => {
   return (
     <nav>
       <ul className="NavList">
-        <li className="NavItem">
+        {routes.map(({ path, label, exact }) => {
+          return (
+            <li key={path} className="NavItem">
+              <NavLink
+                activeClassName="NavLink--active"
+                to={path}
+                exact={exact}
+              >
+                {label}
+              </NavLink>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+};
+
+export default Navigation;
+
+{
+  /* <li className="NavItem">
           <NavLink
             exact
             className="NavLink"
@@ -22,10 +45,5 @@ const Navigation = () => {
           >
             Movies
           </NavLink>
-        </li>
-      </ul>
-    </nav>
-  );
-};
-
-export default Navigation;
+        </li> */
+}

@@ -20,8 +20,8 @@ const MoviesPage = () => {
       <SearchForm onSubmit={handleSubmit} />
       {filmsList && (
         <ul>
-          {filmsList.map(film => (
-            <li key={film.id}>{film.title}</li>
+          {filmsList.map(({ title, id }) => (
+            <li key={id}>{title}</li>
           ))}
         </ul>
       )}
