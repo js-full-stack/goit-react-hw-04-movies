@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/Pages/MovieDetailsPage/MovieDetailsPage.scss"],"names":[],"mappings":"AAAA,uBACE,WAAY,CACb,kBAEC,cAAe","file":"MoviesDetailsPage.363face1.chunk.css","sourcesContent":[".MovieDetailsContainer {\n  width: 580px;\n}\n.MovieDetailsText {\n  font-size: 16px;\n}\n"]}
