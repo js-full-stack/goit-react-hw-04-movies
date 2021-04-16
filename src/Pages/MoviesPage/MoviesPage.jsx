@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
 import './MoviesPage.scss';
 import moviesApi from '../../utils/moviesApi';
@@ -8,8 +9,9 @@ import SearchForm from '../../Components/SearchForm';
 
 const MoviesPage = () => {
   const [filmsList, setFilmsList] = useState([]);
-  const { pathname } = useLocation();
-  console.log('pathname:', pathname);
+  const { pathname, search } = useLocation();
+  // console.log('pathname:', pathname);
+  // console.log('search:', search);
 
   const handleSubmit = searchQuery => {
     moviesApi
@@ -24,12 +26,15 @@ const MoviesPage = () => {
       {filmsList && (
         <ul>
           {filmsList.map(({ title, id }) => (
-            <li key={id}>
-              <Link to={`${pathname}/${id}`}>{title} </Link>
+            <li className="MovieItem" key={id}>
+              <Link className="MoviesLink" to={`${pathname}/${id}`}>
+                {title}
+              </Link>
             </li>
           ))}
         </ul>
       )}
+      <Switch></Switch>
     </>
   );
 };

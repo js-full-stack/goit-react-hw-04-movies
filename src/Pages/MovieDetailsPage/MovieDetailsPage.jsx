@@ -1,21 +1,17 @@
 // import propTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import moviesApi from '../../utils/moviesApi';
-import { v4 as uuidv4 } from 'uuid';
-
-//
+import './MovieDetailsPage.scss';
+import DefaultPoster from '../../images/DefaultPoster.jpg';
 
 const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState([]);
   const { id } = useParams();
-  console.log('id:', id);
 
   useEffect(() => {
     moviesApi.handleClickLinkMovie(id).then(data => setMovieDetails([data]));
   }, []);
-
-  console.log(movieDetails);
 
   return (
     <>
@@ -29,19 +25,24 @@ const MovieDetailsPage = () => {
           release_date,
           poster_path,
         }) => {
-          console.log(poster_path);
           return (
             <div key={id} className="MovieDetailsContainer">
               <h1>{title}</h1>
-              <p>Release date: {release_date}</p>
+              <p className="MovieDetailsText">Release date: {release_date}</p>
               <h2>Overview</h2>
-              <p>{overview}</p>
+              <p className="MovieDetailsText">{overview}</p>
+
+              <button type="button">Go back</button>
               <img
-                src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+                src={
+                  poster_path
+                    ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+                    : DefaultPoster
+                }
                 alt=""
               />
               <h2>Popularuty</h2>
-              <p>{popularity.toFixed(1)}</p>
+              <p className="MovieDetailsText">{popularity.toFixed(1)}</p>
               <h2>Genres</h2>
               <ul>
                 {genres.map(({ name, id }) => (
@@ -55,7 +56,5 @@ const MovieDetailsPage = () => {
     </>
   );
 };
-//image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg
 
 export default MovieDetailsPage;
-// overview '', original__title '', release_date '', genres [],

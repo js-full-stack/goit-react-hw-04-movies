@@ -1,10 +1,11 @@
 .NavList {
   display: flex;
+  padding-left: 40px;
 }
 
 .NavLink {
   font-size: 20px;
-  color: #2a2a2a;
+  color: red;
 }
 
 .NavItem:not(:last-child) {
@@ -12,5 +13,5 @@
 }
 
 .NavLink--active {
-  color: #0003ef;
+  color: #b4057a;
 }

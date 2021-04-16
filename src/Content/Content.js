@@ -2,10 +2,10 @@ import { Suspense } from 'react';
 import { routes } from '../routes';
 import { Switch, Route } from 'react-router-dom';
 import ErrorPage from '../Pages/ErrorPage';
-
+import './Content.scss';
 const Content = () => {
   return (
-    <div className="content">
+    <div className="Content">
       <Suspense fallback={<p>Loading...</p>}>
         <Switch>
           {routes.map(({ path, exact, component: Component }) => (

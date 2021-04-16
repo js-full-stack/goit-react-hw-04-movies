@@ -1,7 +1,3 @@
-.SearchForm {
-  padding-left: 20px;
-}
-
 .SearchLabel {
   display: flex;
   align-items: center;
@@ -24,4 +20,20 @@
   width: 18px;
   height: 18px;
   margin-left: 5px;
+}
+
+.MoviesLink {
+  font-size: 20px;
+  color: #2a2a2a;
+
+  &:hover {
+    color: #b4057a;
+  }
+
+  &:not(:last-child) {
+  }
+}
+
+.MovieItem {
+  margin-bottom: 5px;
 }

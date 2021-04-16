@@ -19,4 +19,5 @@ const handleClickLinkMovie = movieId => {
   return axios.get(MovieUrl).then(({ data }) => data);
 };
 
+// eslint-disable-next-line
 export default { fetchPopularMovies, handleMovieSearch, handleClickLinkMovie };

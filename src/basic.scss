@@ -1,7 +1,19 @@
 a {
   text-decoration: none;
+  color: #2a2a2a;
+}
+
+ul {
+  padding: 0;
 }
 
 li {
   list-style: none;
+}
+
+img {
+  display: block;
+  border: 0;
+  max-width: 100%;
+  height: auto;
 }
