@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import sprite from '../../images/sprite.svg';
-import { useLocation } from 'react-router-dom';
+// import { useLocation, useHistory } from 'react-router-dom';
 import './SearchForm.scss';
 const SearchForm = ({ onSubmit }) => {
   const [query, setQuery] = useState('');
-  const location = useLocation();
 
-  const { pathname, state } = location;
-  console.log(pathname);
-  console.log(state);
   const handleInputChange = e => setQuery(e.target.value);
+
   const handleSubmit = e => {
     e.preventDefault();
     onSubmit(query);
+
     setQuery('');
   };
 
@@ -24,7 +22,6 @@ const SearchForm = ({ onSubmit }) => {
           type="text"
           value={query}
           onChange={handleInputChange}
-          className="SearchInput"
           placeholder="Enter the title of the movie"
         />
         <button className="SearchButton" type="submit">

@@ -1,60 +1,94 @@
 // import propTypes from 'prop-types';
-import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import moviesApi from '../../utils/moviesApi';
 import './MovieDetailsPage.scss';
+import { useState, useEffect } from 'react';
+import {
+  useParams,
+  useHistory,
+  useRouteMatch,
+  Route,
+  Link,
+} from 'react-router-dom';
+import moviesApi from '../../utils/moviesApi';
+
 import DefaultPoster from '../../images/DefaultPoster.jpg';
+import Cast from '../../Components/Cast';
+import Reviews from '../../Components/Reviews';
 
 const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState([]);
   const { id } = useParams();
+  const history = useHistory();
+  const { url, path } = useRouteMatch();
+  const handleGoBack = () => {
+    history.push({
+      pathname: '/movies',
+    });
+  };
 
   useEffect(() => {
-    moviesApi.handleClickLinkMovie(id).then(data => setMovieDetails([data]));
+    moviesApi.handleClickLinkMovie(id).then(data => setMovieDetails(data));
   }, []);
 
-  return (
-    <>
-      {movieDetails.map(
-        ({
-          title,
-          overview,
-          genres,
-          id,
-          popularity,
-          release_date,
-          poster_path,
-        }) => {
-          return (
-            <div key={id} className="MovieDetailsContainer">
-              <h1>{title}</h1>
-              <p className="MovieDetailsText">Release date: {release_date}</p>
-              <h2>Overview</h2>
-              <p className="MovieDetailsText">{overview}</p>
+  const {
+    original_title,
+    title,
 
-              <button type="button">Go back</button>
-              <img
-                src={
-                  poster_path
-                    ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-                    : DefaultPoster
-                }
-                alt=""
-              />
-              <h2>Popularuty</h2>
-              <p className="MovieDetailsText">{popularity.toFixed(1)}</p>
-              <h2>Genres</h2>
-              <ul>
-                {genres.map(({ name, id }) => (
-                  <li key={id}>{name}</li>
-                ))}
-              </ul>
-            </div>
-          );
-        },
+    release_date,
+    overview,
+    poster_path,
+    genres = [],
+  } = movieDetails;
+  return (
+    <article>
+      <h3>{original_title || title}</h3>
+      {release_date && (
+        <p className="MovieDetailsText">Release date: {release_date}</p>
       )}
-    </>
+      {overview && (
+        <>
+          <h3>Overview</h3>
+          <p className="MovieDetailsText">{overview}</p>
+        </>
+      )}
+      <button onClick={handleGoBack} type="button">
+        Go back
+      </button>
+      <img
+        src={
+          poster_path
+            ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+            : DefaultPoster
+        }
+        alt={title}
+      />
+      <>
+        <h3>Genres:</h3>
+        <ul>
+          {genres.map(({ name, id }) => (
+            <li key={id}>{name}</li>
+          ))}
+        </ul>
+      </>
+      {/* Вложенная навигация  */}
+      <Link to={`${url}/reviews`}>Reviews</Link> <br />
+      <Link to={`${url}/cast`}>Cast</Link>
+      <Route
+        path={`${url}/reviews`}
+        render={props => {
+          const reviewsData = movieDetails.reviews;
+          console.log(reviewsData.results);
+          console.log(reviewsData);
+          return <Reviews {...props} data={reviewsData} />;
+        }}
+      />
+      <Route
+        path={`${url}/cast`}
+        render={props => {
+          const castData = movieDetails.credits;
+          return <Cast {...props} data={castData} />;
+        }}
+      />
+    </article>
   );
 };
-
 export default MovieDetailsPage;

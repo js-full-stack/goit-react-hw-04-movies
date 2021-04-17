@@ -15,7 +15,7 @@ const handleMovieSearch = query => {
 };
 
 const handleClickLinkMovie = movieId => {
-  const MovieUrl = `/3/movie/${movieId}?api_key=${API_KEY}`;
+  const MovieUrl = `/3/movie/${movieId}?api_key=${API_KEY}&append_to_response=reviews,credits`;
   return axios.get(MovieUrl).then(({ data }) => data);
 };
 
