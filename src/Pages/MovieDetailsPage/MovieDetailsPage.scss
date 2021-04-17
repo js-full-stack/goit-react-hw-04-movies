@@ -1,6 +1,20 @@
 .MovieDetailsContainer {
   width: 580px;
+  padding-bottom: 50px;
 }
 .MovieDetailsText {
   font-size: 16px;
+}
+
+.LinksContainer {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.AdditionalLinkInfo:not(:last-child) {
+  margin-right: 15px;
+}
+
+.AdditionalLinkInfo--active {
+  color: b4057a;
 }

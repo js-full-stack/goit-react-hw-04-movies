@@ -6,7 +6,7 @@ import {
   useHistory,
   useRouteMatch,
   Route,
-  Link,
+  NavLink,
 } from 'react-router-dom';
 import moviesApi from '../../utils/moviesApi';
 
@@ -39,7 +39,7 @@ const MovieDetailsPage = () => {
     genres = [],
   } = movieDetails;
   return (
-    <article>
+    <article className="MovieDetailsContainer">
       <h3>{original_title || title}</h3>
       {release_date && (
         <p className="MovieDetailsText">Release date: {release_date}</p>
@@ -70,14 +70,29 @@ const MovieDetailsPage = () => {
         </ul>
       </>
       {/* Вложенная навигация  */}
-      <Link to={`${url}/reviews`}>Reviews</Link> <br />
-      <Link to={`${url}/cast`}>Cast</Link>
+      <div className="LinksContainer">
+        <NavLink
+          className="AdditionalLinkInfo"
+          activeClassName="AdditionalLinkInfo--active"
+          to={`${url}/reviews`}
+        >
+          Reviews
+        </NavLink>{' '}
+        <br />
+        <NavLink
+          className="AdditionalLinkInfo"
+          activeClassName="AdditionalLinkInfo--active"
+          to={`${url}/cast`}
+        >
+          Cast
+        </NavLink>
+      </div>
+
       <Route
         path={`${url}/reviews`}
         render={props => {
           const reviewsData = movieDetails.reviews;
-          console.log(reviewsData.results);
-          console.log(reviewsData);
+
           return <Reviews {...props} data={reviewsData} />;
         }}
       />
