@@ -6,8 +6,10 @@ import './HomePage.scss';
 
 const HomePage = () => {
   const [popularMovies, setPopularMovies] = useState([]);
-  const { pathname } = useLocation();
-
+  const location = useLocation();
+  const { pathname } = location;
+  console.log(pathname);
+  console.log(location);
   useEffect(() => {
     moviesApi.fetchPopularMovies().then(movies => {
       setPopularMovies(movies);
@@ -20,7 +22,15 @@ const HomePage = () => {
       <ul>
         {popularMovies.map(({ title, id }) => (
           <li key={id} className="HomePageMovieItem">
-            <Link to={`${pathname}movies/${id}`} className="HomePageMoveiLink">
+            <Link
+              to={{
+                pathname: `${pathname}movies/${id}`,
+                state: {
+                  from: location,
+                },
+              }}
+              className="HomePageMoveiLink"
+            >
               {title}
             </Link>
           </li>

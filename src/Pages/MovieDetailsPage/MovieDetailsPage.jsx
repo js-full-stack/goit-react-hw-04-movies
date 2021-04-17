@@ -7,6 +7,8 @@ import {
   useRouteMatch,
   Route,
   NavLink,
+  useLocation,
+  withRouter,
 } from 'react-router-dom';
 import moviesApi from '../../utils/moviesApi';
 
@@ -17,13 +19,12 @@ import Reviews from '../../Components/Reviews';
 const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState([]);
   const { id } = useParams();
+  const { url } = useRouteMatch();
   const history = useHistory();
-  const { url, path } = useRouteMatch();
-  const handleGoBack = () => {
-    history.push({
-      pathname: '/movies',
-    });
-  };
+
+  const location = useLocation();
+
+  const handleGoBack = () => history.push(location.state.from);
 
   useEffect(() => {
     moviesApi.handleClickLinkMovie(id).then(data => setMovieDetails(data));
@@ -38,6 +39,7 @@ const MovieDetailsPage = () => {
     poster_path,
     genres = [],
   } = movieDetails;
+
   return (
     <article className="MovieDetailsContainer">
       <h3>{original_title || title}</h3>
@@ -50,7 +52,7 @@ const MovieDetailsPage = () => {
           <p className="MovieDetailsText">{overview}</p>
         </>
       )}
-      <button onClick={handleGoBack} type="button">
+      <button type="button" onClick={handleGoBack}>
         Go back
       </button>
       <img
@@ -106,4 +108,4 @@ const MovieDetailsPage = () => {
     </article>
   );
 };
-export default MovieDetailsPage;
+export default withRouter(MovieDetailsPage);
