@@ -1,61 +1,44 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { useLocation, Link, withRouter } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 // import { Switch } from 'react-router-dom';
-
+import queryString from 'query-string';
 import './MoviesPage.scss';
 import moviesApi from '../../utils/moviesApi';
 import SearchForm from '../../Components/SearchForm';
+import MoviesList from '../../Components/MoviesList';
 
 const MoviesPage = () => {
   const location = useLocation();
   const { pathname } = location;
+  const queryParams = queryString.parse(location.search);
 
+  const { push } = useHistory();
+
+  const [value, setValue] = useState(queryParams?.query || '');
   const [filmsList, setFilmsList] = useState([]);
-  console.log(location);
 
-  // console.log('pathname:', pathname);
-  // console.log('search:', search);
-
-  const handleSubmit = searchQuery => {
-    moviesApi
-      .handleMovieSearch(searchQuery)
-      .then(results => setFilmsList(results));
+  const getFilms = () => {
+    moviesApi.handleMovieSearch(value).then(results => setFilmsList(results));
   };
+
+  const handleSubmit = query => {
+    setValue(query);
+  };
+
+  useEffect(() => {
+    if (value) {
+      push({ ...location, search: `?query=${value}` });
+
+      getFilms();
+    }
+  }, [value]);
 
   return (
     <>
-      <h2>Movies Page</h2>
       <SearchForm onSubmit={handleSubmit} />
-
-      <ul>
-        {filmsList.map(({ title, id }) => (
-          <li className="MovieItem" key={id}>
-            <Link
-              className="MoviesLink"
-              to={{
-                pathname: `${pathname}/${id}`,
-                state: {
-                  from: location,
-                },
-              }}
-            >
-              {title}
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      {/* <Switch></Switch> */}
+      <MoviesList filmsList={filmsList} value={value} />
     </>
   );
-};
-
-MoviesPage.propTypes = {
-  handleSubmit: PropTypes.func,
-  moviesApi: PropTypes.shape({
-    handleMovieSearch: PropTypes.func,
-  }),
 };
 
 export default MoviesPage;

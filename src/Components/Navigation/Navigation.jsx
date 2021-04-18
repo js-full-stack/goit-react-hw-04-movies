@@ -10,6 +10,7 @@ const Navigation = () => {
           return label ? (
             <li key={path} className="NavItem">
               <NavLink
+                className="NavLink"
                 activeClassName="NavLink--active"
                 to={path}
                 key={path}

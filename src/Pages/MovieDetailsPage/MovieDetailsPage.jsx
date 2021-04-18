@@ -12,79 +12,56 @@ import {
 } from 'react-router-dom';
 import moviesApi from '../../utils/moviesApi';
 
-import DefaultPoster from '../../images/DefaultPoster.jpg';
 import Cast from '../../Components/Cast';
+import MoviesDetailsInfo from '../../Components/MoviesDetailsInfo';
 import Reviews from '../../Components/Reviews';
 
 const MovieDetailsPage = () => {
-  const [movieDetails, setMovieDetails] = useState([]);
+  const [movieDetails, setMovieDetails] = useState({});
+  const { error, stateError } = useState();
   const { id } = useParams();
   const { url } = useRouteMatch();
-  const history = useHistory();
+  const { push } = useHistory();
 
   const location = useLocation();
-
-  const handleGoBack = () => history.push(location.state.from);
+  const handleGoBack = () => {
+    push(location?.state?.from || push('/'));
+  };
 
   useEffect(() => {
     moviesApi.handleClickLinkMovie(id).then(data => setMovieDetails(data));
   }, []);
 
-  const {
-    original_title,
-    title,
-
-    release_date,
-    overview,
-    poster_path,
-    genres = [],
-  } = movieDetails;
-
   return (
     <article className="MovieDetailsContainer">
-      <h3>{original_title || title}</h3>
-      {release_date && (
-        <p className="MovieDetailsText">Release date: {release_date}</p>
-      )}
-      {overview && (
-        <>
-          <h3>Overview</h3>
-          <p className="MovieDetailsText">{overview}</p>
-        </>
-      )}
-      <button type="button" onClick={handleGoBack}>
-        Go back
-      </button>
-      <img
-        src={
-          poster_path
-            ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-            : DefaultPoster
-        }
-        alt={title}
-      />
-      <>
-        <h3>Genres:</h3>
-        <ul>
-          {genres.map(({ name, id }) => (
-            <li key={id}>{name}</li>
-          ))}
-        </ul>
-      </>
+      <MoviesDetailsInfo movieDetails={movieDetails} onClick={handleGoBack} />
+
       {/* Вложенная навигация  */}
       <div className="LinksContainer">
         <NavLink
           className="AdditionalLinkInfo"
           activeClassName="AdditionalLinkInfo--active"
-          to={`${url}/reviews`}
+          to={{
+            pathname: `${url}/reviews`,
+            state: {
+              from: location?.state?.from,
+            },
+          }}
         >
           Reviews
-        </NavLink>{' '}
+        </NavLink>
         <br />
+        <br />
+
         <NavLink
           className="AdditionalLinkInfo"
           activeClassName="AdditionalLinkInfo--active"
-          to={`${url}/cast`}
+          to={{
+            pathname: `${url}/cast`,
+            state: {
+              from: location?.state?.from,
+            },
+          }}
         >
           Cast
         </NavLink>
@@ -93,19 +70,26 @@ const MovieDetailsPage = () => {
       <Route
         path={`${url}/reviews`}
         render={props => {
-          const reviewsData = movieDetails.reviews;
-
-          return <Reviews {...props} data={reviewsData} />;
+          return (
+            movieDetails?.reviews?.results &&
+            (<Reviews {...props} data={movieDetails.reviews.results} /> || (
+              <p>We don't have reviews for this movie</p>
+            ))
+          );
         }}
       />
       <Route
         path={`${url}/cast`}
         render={props => {
-          const castData = movieDetails.credits;
-          return <Cast {...props} data={castData} />;
+          return (
+            movieDetails?.credits?.cast?.length > 0 && (
+              <Cast {...props} cast={movieDetails.credits.cast} />
+            )
+          );
         }}
       />
     </article>
   );
 };
+
 export default withRouter(MovieDetailsPage);

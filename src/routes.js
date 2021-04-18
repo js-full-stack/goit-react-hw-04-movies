@@ -1,6 +1,5 @@
 import { lazy } from 'react';
 // import HomePage from './Pages/HomePage';
-// import MoviesPage from './Pages/MoviesPage';
 
 const HomePage = lazy(() =>
   import('./Pages/HomePage' /* webpackChunkName: "HomePage" */),
@@ -21,7 +20,7 @@ export const routes = [
   {
     path: '/movies',
     label: 'Movies Page',
-    exact: true,
+
     component: MoviesPage,
   },
 ];

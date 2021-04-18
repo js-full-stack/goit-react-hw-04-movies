@@ -1,15 +1,20 @@
 .NavList {
   display: flex;
-  padding-left: 40px;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0px;
+  margin: 0;
+  background-color: #ecc0c0;
 }
 
 .NavLink {
-  font-size: 20px;
-  color: red;
+  font-size: 26px;
+  font-weight: 600;
+  color: #2a2a2a;
 }
 
 .NavItem:not(:last-child) {
-  margin-right: 15px;
+  margin-right: 30px;
 }
 
 .NavLink--active {

@@ -1,22 +1,16 @@
 import propTypes from 'prop-types';
+import './Reviews.scss';
 
 const Reviews = ({ data }) => {
-  // data.map(result => console.log(result));
-  const { results } = data;
-  console.log();
   return (
-    <>
-      {results.length > 0 ? (
-        results.map(({ author, id, content }) => (
-          <div className="ReviewsContainer" key={id}>
-            <h3>Author: {author}</h3>
-            <p>{content}</p>
-          </div>
-        ))
-      ) : (
-        <p>We don't have reviews for this movie</p>
-      )}
-    </>
+    <ul className="ReviewsList">
+      {data.map(({ author, id, content }) => (
+        <li className="ReviewsItem" key={id}>
+          <h3 className="ReviewsAuthor">Author: {author}</h3>
+          <p className="ReviewsContent">{content}</p>
+        </li>
+      ))}
+    </ul>
   );
 };
 

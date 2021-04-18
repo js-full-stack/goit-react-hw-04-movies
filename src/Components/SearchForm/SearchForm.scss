@@ -1,4 +1,30 @@
+.SearchForm {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .SearchInput {
   height: 50px;
+  width: 350px;
   padding-left: 10px;
+}
+
+.SearchLabel {
+  display: flex;
+  align-items: center;
+}
+
+.SearchButton {
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+  margin-left: 15px;
+  font-size: 20px;
+}
+
+.SearchIcon {
+  width: 18px;
+  height: 18px;
+  margin-left: 5px;
 }

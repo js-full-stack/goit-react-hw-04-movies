@@ -11,7 +11,7 @@ const SearchForm = ({ onSubmit }) => {
     e.preventDefault();
     onSubmit(query);
 
-    setQuery('');
+    // setQuery('');
   };
 
   return (

@@ -12,7 +12,6 @@ const Content = () => {
             <Route key={path} path={path} exact={exact} component={Component} />
           ))}
           <Route component={ErrorPage} />
-          {/* <Redirect to="/" /> */}
         </Switch>
       </Suspense>
     </div>

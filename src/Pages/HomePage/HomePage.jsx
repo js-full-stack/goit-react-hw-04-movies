@@ -8,20 +8,17 @@ const HomePage = () => {
   const [popularMovies, setPopularMovies] = useState([]);
   const location = useLocation();
   const { pathname } = location;
-  console.log(pathname);
-  console.log(location);
+
   useEffect(() => {
     moviesApi.fetchPopularMovies().then(movies => {
       setPopularMovies(movies);
     });
   }, []);
-
   return (
     <>
-      <h2>Popular Movies</h2>
-      <ul>
-        {popularMovies.map(({ title, id }) => (
-          <li key={id} className="HomePageMovieItem">
+      <ul className="PopularMoviesList">
+        {popularMovies.map(({ title, id, poster_path }) => (
+          <li key={id} className="PopularMoviesItem">
             <Link
               to={{
                 pathname: `${pathname}movies/${id}`,
@@ -29,9 +26,14 @@ const HomePage = () => {
                   from: location,
                 },
               }}
-              className="HomePageMoveiLink"
+              className="PopularMoviesLink"
             >
-              {title}
+              <img
+                className="PopularMoviesItem-image"
+                src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                alt=""
+              />
+              <h5 className="PopularMoviesTitle">{title}</h5>
             </Link>
           </li>
         ))}
