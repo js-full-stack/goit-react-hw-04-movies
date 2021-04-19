@@ -1,6 +1,7 @@
 // import propTypes from 'prop-types';
 import './MovieDetailsPage.scss';
-import { useState, useEffect } from 'react';
+
+import { useState, useEffect, Suspense, lazy } from 'react';
 import {
   useParams,
   useHistory,
@@ -9,12 +10,18 @@ import {
   NavLink,
   useLocation,
   withRouter,
+  Switch,
 } from 'react-router-dom';
 import moviesApi from '../../utils/moviesApi';
-
-import Cast from '../../Components/Cast';
 import MoviesDetailsInfo from '../../Components/MoviesDetailsInfo';
-import Reviews from '../../Components/Reviews';
+
+const Cast = lazy(() => import('../../Components/Cast'));
+const Reviews = lazy(() => import('../../Components/Reviews'));
+// import Cast from '../../Components/Cast';
+// import Reviews from '../../Components/Reviews';
+// const MoviesPage = lazy(() =>
+//   import('./Pages/MoviesPage' /* webpackChunkName: "MoviesPage" */),
+// );
 
 const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState({});
@@ -67,27 +74,31 @@ const MovieDetailsPage = () => {
         </NavLink>
       </div>
 
-      <Route
-        path={`${url}/reviews`}
-        render={props => {
-          return (
-            movieDetails?.reviews?.results &&
-            (<Reviews {...props} data={movieDetails.reviews.results} /> || (
-              <p>We don't have reviews for this movie</p>
-            ))
-          );
-        }}
-      />
-      <Route
-        path={`${url}/cast`}
-        render={props => {
-          return (
-            movieDetails?.credits?.cast?.length > 0 && (
-              <Cast {...props} cast={movieDetails.credits.cast} />
-            )
-          );
-        }}
-      />
+      <Switch>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Route
+            path={`${url}/reviews`}
+            render={props => {
+              console.log(movieDetails.reviews.results);
+              return (
+                (movieDetails?.reviews?.results?.length > 0 && (
+                  <Reviews {...props} data={movieDetails.reviews.results} />
+                )) || <p>We don't have reviews for this movie</p>
+              );
+            }}
+          />
+          <Route
+            path={`${url}/cast`}
+            render={props => {
+              return (
+                movieDetails?.credits?.cast?.length > 0 && (
+                  <Cast {...props} cast={movieDetails.credits.cast} />
+                )
+              );
+            }}
+          />
+        </Suspense>
+      </Switch>
     </article>
   );
 };

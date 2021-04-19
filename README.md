@@ -1,10 +1,5 @@
 **Читать на других языках: [Русский](README.md), [Українська](README.ua.md).**
 
-Ключ API (v3 auth) a97e0a0a9b37b258134862ba760da91a Пример API-запроса
-https://api.themoviedb.org/3/movie/550?api_key=a97e0a0a9b37b258134862ba760da91a
-Ключ доступа к API (v4 auth)
-eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhOTdlMGEwYTliMzdiMjU4MTM0ODYyYmE3NjBkYTkxYSIsInN1YiI6IjYwNzZhMDE4OGRkYzM0MDA1N2QxYmZkOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.M9BOq76xNur9O1y-Y9ca14figgEH6rPMgkYX8TK_qkU
-
 # Критерии приема
 
 - Создан репозиторий `goit-react-hw-04-movies`

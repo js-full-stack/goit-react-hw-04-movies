@@ -12,11 +12,17 @@ const Cast = ({ cast }) => {
             <li key={id} className="CastItem">
               {profile_path ? (
                 <img
+                  className="ImageCastPhoto"
                   src={`https://image.tmdb.org/t/p/w300/${profile_path}`}
                   alt={name}
                 />
               ) : (
-                <img src={DefaultPhoto} alt="" width="300" />
+                <img
+                  className="ImageDefaultPhoto"
+                  src={DefaultPhoto}
+                  alt=""
+                  width="300"
+                />
               )}
               {name}
             </li>

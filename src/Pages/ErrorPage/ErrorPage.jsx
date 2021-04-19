@@ -21,14 +21,6 @@ const ErrorPage = () => {
         <div className="Error">404</div>
         <div className="Notfound">
           Страница не найдена <br />
-          <button onClick={handleGoHome} className="LinkGoToHome">
-            {' '}
-            Перейти на главную страницу..
-          </button>{' '}
-          <br />
-          <button onClick={handleGoSearch} className="LinkGoToSearch">
-            Перейти на страницу поиска
-          </button>
         </div>
       </div>
     </>

@@ -18,3 +18,14 @@
   font-size: 25px;
   font-weight: 500;
 }
+
+.CastItem:hover {
+  transform: scale(1.03);
+}
+
+.ImageDefaultPhoto,
+.ImageCastPhoto {
+  height: 400px;
+  object-fit: cover;
+  object-position: top;
+}

@@ -3,19 +3,28 @@ const API_KEY = 'a97e0a0a9b37b258134862ba760da91a';
 axios.defaults.baseURL = 'https://api.themoviedb.org';
 const URL = `/3/trending/movie/day?api_key=${API_KEY}`;
 
-const fetchPopularMovies = () => {
-  return axios.get(URL).then(({ data }) => data.results);
+const fetchPopularMovies = async () => {
+  const { data } = await axios.get(URL);
+  return data.results;
 };
 
-const handleMovieSearch = query => {
+const handleMovieSearch = async query => {
   const SearchUrl = `/3/search/movie?api_key=${API_KEY}&query=${query}`;
-  return axios.get(SearchUrl).then(({ data }) => data.results);
+
+  const { data } = await axios.get(SearchUrl);
+
+  return data.results;
 };
 
-const handleClickLinkMovie = movieId => {
+const handleClickLinkMovie = async movieId => {
   const MovieUrl = `/3/movie/${movieId}?api_key=${API_KEY}&append_to_response=reviews,credits`;
-  return axios.get(MovieUrl).then(({ data }) => data);
+  const { data } = await axios.get(MovieUrl);
+  return data;
 };
 
 // eslint-disable-next-line
-export default { fetchPopularMovies, handleMovieSearch, handleClickLinkMovie };
+export default {
+  fetchPopularMovies,
+  handleMovieSearch,
+  handleClickLinkMovie,
+};
