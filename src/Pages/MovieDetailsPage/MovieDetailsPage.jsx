@@ -17,15 +17,9 @@ import MoviesDetailsInfo from '../../Components/MoviesDetailsInfo';
 
 const Cast = lazy(() => import('../../Components/Cast'));
 const Reviews = lazy(() => import('../../Components/Reviews'));
-// import Cast from '../../Components/Cast';
-// import Reviews from '../../Components/Reviews';
-// const MoviesPage = lazy(() =>
-//   import('./Pages/MoviesPage' /* webpackChunkName: "MoviesPage" */),
-// );
 
 const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState({});
-  const { error, stateError } = useState();
   const { id } = useParams();
   const { url } = useRouteMatch();
   const { push } = useHistory();
@@ -36,7 +30,7 @@ const MovieDetailsPage = () => {
   };
 
   useEffect(() => {
-    moviesApi.handleClickLinkMovie(id).then(data => setMovieDetails(data));
+    moviesApi.getMovieById(id).then(data => setMovieDetails(data));
   }, []);
 
   return (

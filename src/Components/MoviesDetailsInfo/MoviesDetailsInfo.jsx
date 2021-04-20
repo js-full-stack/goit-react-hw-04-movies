@@ -8,7 +8,6 @@ const MoviesDetailsInfo = ({ movieDetails, onClick }) => {
     release_date,
     overview,
     poster_path,
-    backdrop_path,
     genres = [],
   } = movieDetails;
 
@@ -36,7 +35,9 @@ const MoviesDetailsInfo = ({ movieDetails, onClick }) => {
         }
         alt={title}
       />
-      <h3 className="MovieDetailsSubTitle--genres">Genres:</h3>
+      {genres.length > 0 && (
+        <h3 className="MovieDetailsSubTitle--genres">Genres:</h3>
+      )}
       <div className="MoviesDetailsGenresContainer">
         <ul className="MovieDetailsList--genres">
           {genres.map(({ name, id }) => (

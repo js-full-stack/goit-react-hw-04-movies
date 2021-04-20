@@ -9,7 +9,6 @@ import MoviesList from '../../Components/MoviesList';
 
 const MoviesPage = () => {
   const location = useLocation();
-  const { pathname } = location;
   const queryParams = queryString.parse(location.search);
 
   const { push } = useHistory();
@@ -18,7 +17,7 @@ const MoviesPage = () => {
   const [filmsList, setFilmsList] = useState([]);
 
   const getFilms = () => {
-    moviesApi.handleMovieSearch(value).then(results => setFilmsList(results));
+    moviesApi.getMoviesByName(value).then(results => setFilmsList(results));
   };
 
   const handleSubmit = query => {
